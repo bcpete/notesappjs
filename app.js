@@ -8,6 +8,7 @@ const yargs = require('yargs');
 const notes = require('./notes.js');
 
 const argv = yargs.argv;
+
 //grab the command line arg for the command
 var command = process.argv[2];
 
