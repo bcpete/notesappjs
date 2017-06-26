@@ -1,21 +1,23 @@
-console.log('starting app.js');
-//third party modules
 const fs = require('fs');
 const _ = require('lodash');
 const yargs = require('yargs');
-
-//my modules
 const notes = require('./notes.js');
 
 const argv = yargs.argv;
 
-//grab the command line arg for the command
 var command = process.argv[2];
 
 
-//what to do with each command line arg
 if (command === 'add'){
-    notes.addNote(argv.title, argv.body);
+    var note = notes.addNote(argv.title, argv.body);
+    if(note){
+        console.log('Note created :)!');
+        console.log('----------------');
+        console.log(`Title: ${note.title}`);
+        console.log(`Body: ${note.body}`);
+    }else {
+        console.log('Title taken :(');
+    }
 }else if (command === 'list') {
     notes.getAll();
 }else if (command === 'read') {

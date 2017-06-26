@@ -1,30 +1,39 @@
-console.log('Starting notes.js');
-
 const fs = require('fs');
 
-//Take inpute from command line, create note object, add it to the notes array,
-//write the array to the notes-data.json folder
+//gets all notes in notes-data.json, if there isnt a notes-data.json returns
+//empty array
+var fetchNotes = () => {
+    try {
+        var notesString = fs.readFileSync('notes-data.json');
+        return JSON.parse(notesString);
+    }catch(e){
+        return [];
+    }
+};
+
+//writes notes array to notes-data.json
+var saveNotes = (notes) => {
+    fs.writeFile('notes-data.json', JSON.stringify(notes));
+};
+
+//create note object, add it to the notes array write the array to the 
+//notes-data.json folder
 var addNote = (title, body) => {
-    var notes = [];
+    var notes = fetchNotes();
     var note = {
         title,
         body
     };
-
-    try {
-        var notesString = fs.readFileSync('notes-data.json');
-        notes = JSON.parse(notesString);
-    }catch(e){
-
-    }
-
+    
     var duplicateNotes = notes.filter((note) => note.title === title);
     if(duplicateNotes.length === 0) {
         notes.push(note);
-        fs.writeFile('notes-data.json', JSON.stringify(notes));
+        saveNotes(notes);
+        return note;
     }else{
-        console.log('Title already taken. Please choose a different title');
+        
     }
+
 };
 
 var getAll = () => {
