@@ -11,17 +11,17 @@ var command = process.argv[2];
 if (command === 'add'){
     var note = notes.addNote(argv.title, argv.body);
     if(note){
-        console.log('Note created :)!');
-        console.log('----------------');
-        console.log(`Title: ${note.title}`);
-        console.log(`Body: ${note.body}`);
+        notes.logNote(note);
     }else {
         console.log('Title taken :(');
     }
 }else if (command === 'list') {
-    notes.getAll();
+    var listOfNotes = notes.getAll();
+    console.log(listOfNotes);
 }else if (command === 'read') {
-    notes.getNote(argv.title);
+    var note = notes.getNote(argv.title);
+    var message = note ? notes.logNote(note) : 'Note not found';
+    console.log(message);
 }else if (command === 'remove'){
     var noteRemoved = notes.removeNote(argv.title);
     var message = noteRemoved ? 'Note deleted' : 'Note not found';
