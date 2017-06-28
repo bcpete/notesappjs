@@ -16,8 +16,9 @@ if (command === 'add'){
         console.log('Title taken :(');
     }
 }else if (command === 'list') {
-    var listOfNotes = notes.getAll();
-    console.log(listOfNotes);
+    var allNotes = notes.getAll();
+    console.log(`Printing ${allNotes.length} note(s).`);
+    allNotes.forEach((note) => notes.logNote(note));
 }else if (command === 'read') {
     var note = notes.getNote(argv.title);
     var message = note ? notes.logNote(note) : 'Note not found';

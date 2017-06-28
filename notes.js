@@ -1,7 +1,6 @@
 const fs = require('fs');
 
-//gets all notes in notes-data.json, if there isnt a notes-data.json returns
-//empty array
+
 var fetchNotes = () => {
     try {
         var notesString = fs.readFileSync('notes-data.json');
@@ -11,13 +10,12 @@ var fetchNotes = () => {
     }
 };
 
-//writes notes array to notes-data.json
+
 var saveNotes = (notes) => {
     fs.writeFile('notes-data.json', JSON.stringify(notes));
 };
 
-//create note object, add it to the notes array write the array to the 
-//notes-data.json folder
+
 var addNote = (title, body) => {
     var notes = fetchNotes();
     var note = {
@@ -37,8 +35,7 @@ var addNote = (title, body) => {
 };
 
 var getAll = () => {
-    var notes = fetchNotes();
-    return notes;
+    return fetchNotes();
 };
 
 var getNote = (title) => {
@@ -48,18 +45,13 @@ var getNote = (title) => {
 }
 
 var removeNote = (title) => {
-    //fetch all notes
     var notes = fetchNotes();
-    //filter notes, removing one with title
     var newNotes = notes.filter((note) => note.title !== title);
-    //save new notes array
     saveNotes(newNotes);
-    //return true if note was removed, false if note was not removed.
     return notes.length !== newNotes.length;
 }
 
 var logNote = (note) => {
-    console.log("Success! :D")
     console.log('-----------');
     console.log(`Title: ${note.title}`);
     console.log(`Body:  ${note.body}`);
