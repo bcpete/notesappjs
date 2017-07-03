@@ -24,6 +24,9 @@ const argv = yargs
     .command('read', 'Read a note', {
         title: titleOptions
     })
+    .command('remove', 'Remove a note', {
+        title: titleOptions
+    })
     .help()
     .argv;
 var command = process.argv[2];
